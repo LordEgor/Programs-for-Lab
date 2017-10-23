@@ -8,6 +8,7 @@ namespace LABA_1_1 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+
 	using namespace System::IO;
 
 	/// <summary>
@@ -62,12 +63,17 @@ namespace LABA_1_1 {
 	private: System::Windows::Forms::Button^  buttonCountriesFileChoose;
 	private: System::Windows::Forms::Label^  labelTownsAdd;
 	private: System::Windows::Forms::Button^  buttonTownsAdd;
+	private: System::Windows::Forms::Timer^  timer1;
+	private: System::Windows::Forms::MenuStrip^  menuStrip;
+	private: System::Windows::Forms::ToolStripMenuItem^  справкаToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  оПрограммеToolStripMenuItem;
+	private: System::ComponentModel::IContainer^  components;
 
 	private:
 		/// <summary>
 		/// Требуется переменная конструктора.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -76,6 +82,7 @@ namespace LABA_1_1 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->groupBoxTowns = (gcnew System::Windows::Forms::GroupBox());
 			this->labelTownsAdd = (gcnew System::Windows::Forms::Label());
 			this->buttonTownsAdd = (gcnew System::Windows::Forms::Button());
@@ -98,8 +105,13 @@ namespace LABA_1_1 {
 			this->textBoxCountriesWriteCountry = (gcnew System::Windows::Forms::TextBox());
 			this->labelCountriesFileChoose = (gcnew System::Windows::Forms::Label());
 			this->buttonCountriesFileChoose = (gcnew System::Windows::Forms::Button());
+			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->menuStrip = (gcnew System::Windows::Forms::MenuStrip());
+			this->справкаToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->оПрограммеToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->groupBoxTowns->SuspendLayout();
 			this->groupBoxCountries->SuspendLayout();
+			this->menuStrip->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// groupBoxTowns
@@ -116,25 +128,25 @@ namespace LABA_1_1 {
 			this->groupBoxTowns->Controls->Add(this->buttonTownsFileChoose);
 			this->groupBoxTowns->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->groupBoxTowns->Location = System::Drawing::Point(46, 25);
+			this->groupBoxTowns->Location = System::Drawing::Point(12, 30);
 			this->groupBoxTowns->Name = L"groupBoxTowns";
-			this->groupBoxTowns->Size = System::Drawing::Size(628, 178);
+			this->groupBoxTowns->Size = System::Drawing::Size(425, 180);
 			this->groupBoxTowns->TabIndex = 0;
 			this->groupBoxTowns->TabStop = false;
 			this->groupBoxTowns->Text = L"Города";
 			// 
 			// labelTownsAdd
 			// 
-			this->labelTownsAdd->AutoSize = true;
-			this->labelTownsAdd->Location = System::Drawing::Point(340, 148);
+			this->labelTownsAdd->Location = System::Drawing::Point(25, 146);
 			this->labelTownsAdd->Name = L"labelTownsAdd";
-			this->labelTownsAdd->Size = System::Drawing::Size(82, 17);
+			this->labelTownsAdd->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
+			this->labelTownsAdd->Size = System::Drawing::Size(252, 24);
 			this->labelTownsAdd->TabIndex = 5;
 			this->labelTownsAdd->Text = L"Добавлено";
 			// 
 			// buttonTownsAdd
 			// 
-			this->buttonTownsAdd->Location = System::Drawing::Point(473, 140);
+			this->buttonTownsAdd->Location = System::Drawing::Point(315, 138);
 			this->buttonTownsAdd->Name = L"buttonTownsAdd";
 			this->buttonTownsAdd->Size = System::Drawing::Size(94, 32);
 			this->buttonTownsAdd->TabIndex = 3;
@@ -195,10 +207,11 @@ namespace LABA_1_1 {
 			// 
 			// labelTownsFileChoose
 			// 
-			this->labelTownsFileChoose->AutoSize = true;
-			this->labelTownsFileChoose->Location = System::Drawing::Point(168, 42);
+			this->labelTownsFileChoose->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->labelTownsFileChoose->Location = System::Drawing::Point(154, 19);
 			this->labelTownsFileChoose->Name = L"labelTownsFileChoose";
-			this->labelTownsFileChoose->Size = System::Drawing::Size(118, 17);
+			this->labelTownsFileChoose->Size = System::Drawing::Size(265, 71);
 			this->labelTownsFileChoose->TabIndex = 1;
 			this->labelTownsFileChoose->Text = L"Файл не выбран";
 			// 
@@ -227,25 +240,25 @@ namespace LABA_1_1 {
 			this->groupBoxCountries->Controls->Add(this->buttonCountriesFileChoose);
 			this->groupBoxCountries->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->groupBoxCountries->Location = System::Drawing::Point(46, 234);
+			this->groupBoxCountries->Location = System::Drawing::Point(12, 220);
 			this->groupBoxCountries->Name = L"groupBoxCountries";
-			this->groupBoxCountries->Size = System::Drawing::Size(628, 178);
+			this->groupBoxCountries->Size = System::Drawing::Size(431, 178);
 			this->groupBoxCountries->TabIndex = 0;
 			this->groupBoxCountries->TabStop = false;
 			this->groupBoxCountries->Text = L"Страны";
 			// 
 			// labelCountriesAdd
 			// 
-			this->labelCountriesAdd->AutoSize = true;
-			this->labelCountriesAdd->Location = System::Drawing::Point(340, 148);
+			this->labelCountriesAdd->Location = System::Drawing::Point(25, 148);
 			this->labelCountriesAdd->Name = L"labelCountriesAdd";
-			this->labelCountriesAdd->Size = System::Drawing::Size(82, 17);
+			this->labelCountriesAdd->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
+			this->labelCountriesAdd->Size = System::Drawing::Size(253, 24);
 			this->labelCountriesAdd->TabIndex = 5;
 			this->labelCountriesAdd->Text = L"Добавлено";
 			// 
 			// buttonCountriesAdd
 			// 
-			this->buttonCountriesAdd->Location = System::Drawing::Point(473, 140);
+			this->buttonCountriesAdd->Location = System::Drawing::Point(315, 140);
 			this->buttonCountriesAdd->Name = L"buttonCountriesAdd";
 			this->buttonCountriesAdd->Size = System::Drawing::Size(94, 32);
 			this->buttonCountriesAdd->TabIndex = 3;
@@ -306,10 +319,11 @@ namespace LABA_1_1 {
 			// 
 			// labelCountriesFileChoose
 			// 
-			this->labelCountriesFileChoose->AutoSize = true;
-			this->labelCountriesFileChoose->Location = System::Drawing::Point(148, 44);
+			this->labelCountriesFileChoose->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->labelCountriesFileChoose->Location = System::Drawing::Point(154, 19);
 			this->labelCountriesFileChoose->Name = L"labelCountriesFileChoose";
-			this->labelCountriesFileChoose->Size = System::Drawing::Size(118, 17);
+			this->labelCountriesFileChoose->Size = System::Drawing::Size(271, 71);
 			this->labelCountriesFileChoose->TabIndex = 1;
 			this->labelCountriesFileChoose->Text = L"Файл не выбран";
 			// 
@@ -324,28 +338,62 @@ namespace LABA_1_1 {
 			this->buttonCountriesFileChoose->UseVisualStyleBackColor = true;
 			this->buttonCountriesFileChoose->Click += gcnew System::EventHandler(this, &MainForm::buttonCountriesFileChoose_Click);
 			// 
+			// timer1
+			// 
+			this->timer1->Interval = 3000;
+			// 
+			// menuStrip
+			// 
+			this->menuStrip->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->справкаToolStripMenuItem });
+			this->menuStrip->Location = System::Drawing::Point(0, 0);
+			this->menuStrip->Name = L"menuStrip";
+			this->menuStrip->Size = System::Drawing::Size(456, 24);
+			this->menuStrip->TabIndex = 1;
+			this->menuStrip->Text = L"menuStrip1";
+			// 
+			// справкаToolStripMenuItem
+			// 
+			this->справкаToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->оПрограммеToolStripMenuItem });
+			this->справкаToolStripMenuItem->Name = L"справкаToolStripMenuItem";
+			this->справкаToolStripMenuItem->Size = System::Drawing::Size(65, 20);
+			this->справкаToolStripMenuItem->Text = L"Справка";
+			// 
+			// оПрограммеToolStripMenuItem
+			// 
+			this->оПрограммеToolStripMenuItem->Name = L"оПрограммеToolStripMenuItem";
+			this->оПрограммеToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->оПрограммеToolStripMenuItem->Text = L"О программе";
+			this->оПрограммеToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::оПрограммеToolStripMenuItem_Click);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(693, 444);
+			this->ClientSize = System::Drawing::Size(456, 421);
 			this->Controls->Add(this->groupBoxCountries);
 			this->Controls->Add(this->groupBoxTowns);
+			this->Controls->Add(this->menuStrip);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
+			this->MainMenuStrip = this->menuStrip;
+			this->MaximumSize = System::Drawing::Size(1000, 1000);
 			this->Name = L"MainForm";
-			this->Text = L"Запись файлов";
+			this->Text = L"Запись городов и стран";
 			this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
 			this->groupBoxTowns->ResumeLayout(false);
 			this->groupBoxTowns->PerformLayout();
 			this->groupBoxCountries->ResumeLayout(false);
 			this->groupBoxCountries->PerformLayout();
+			this->menuStrip->ResumeLayout(false);
+			this->menuStrip->PerformLayout();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
 
 	// Имена файлов для ввода информации
-	private: String^ townsFileName = ".000"; // Файл городов
-	private: String^ countriesFileName = ".111";
+	private: String^ townsFileName = String::Empty; // Файл городов
+	private: String^ countriesFileName = String::Empty;
 	// Диалоговое окно
 	private: OpenFileDialog^ fileDialog;
 	// Потоки ввода-вывода
@@ -370,8 +418,14 @@ namespace LABA_1_1 {
 				 // Пустые label'ы рядом с кнопками "Добавить"
 				 labelTownsAdd->Text = String::Empty;
 				 labelCountriesAdd->Text = String::Empty;
-	}	  
 
+				 // Описание таймера (на форме)
+				 timer1->Enabled = true; // Признак того, что событие timer1->Tick может вызываться/срабатывать
+				 timer1->Interval = 3000; // интервал между срабатываниями timer1->Tick
+				 timer1->Tick += gcnew EventHandler(this, &MainForm::Timer_Elapsed_Method); // Указываем, какой метод вызывается при срабатывании события timer1->Tick
+				 
+	}	  // end of MainForm_Load
+#pragma region ненужные методы
 			 /// <summary>
 			 /// Активация/дизактивация элементов ввода городов
 			 /// <param name="enable">True=активированы\nFlase=Неактивны</param>
@@ -416,33 +470,49 @@ namespace LABA_1_1 {
 				 textBoxCountriesWriteCapital->Clear();
 				 textBoxCountriesWriteContinent->Clear();
 	}
+#pragma endregion
+			 /// <summary>
+			 /// Событие по прошедшему timer1->Tick прекращает таймер и обнуляет label'ы
+			 /// </summary>
+	private: System::Void Timer_Elapsed_Method(System::Object^  sender, System::EventArgs^  e) {
+				 timer1->Stop();
+				 labelTownsAdd->Text = String::Empty;
+				 labelCountriesAdd->Text = String::Empty;
+	}
 
 
-
+			 /// <summary>
+			 /// Нажатие на кнопку выбора файла городов
+			 /// </summary>
 private: System::Void buttonTownsFileChoose_Click(System::Object^  sender, System::EventArgs^  e) {
-			 // Диалоговое окно выбора файла
+			 // Показывается диалоговое окно выбора файла
 			 System::Windows::Forms::DialogResult res = this->fileDialog->ShowDialog();
 			 if (res == System::Windows::Forms::DialogResult::Cancel)
 				 return; // Файл не выбран
-			 townsFileName = fileDialog->FileName;
+			 townsFileName = fileDialog->FileName; // Запись пути к файлу городов
 			 if (String::Equals(townsFileName, countriesFileName)) { // Если файл выбран повторно
 				 System::Windows::Forms::MessageBox::Show(L"Файл " + countriesFileName + L" открыт для записи информации о странах, его нельзя использовать", L"Ошибка!");
 				 return;
 			 }
-			 bool append = System::Windows::Forms::MessageBox::Show(L"Вы хотите дозаписать файл?\nYes - Да\t\tNo - Перезаписать файл", L"Режим работы с файлом городов", System::Windows::Forms::MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes; // Вопрос о до/пере-записи
+			 // Вопрос о до/пере-записи
+			 bool append = System::Windows::Forms::MessageBox::Show(L"Вы хотите дозаписать файл?\nYes - Да\t\tNo - Перезаписать файл", L"Режим работы с файлом городов", System::Windows::Forms::MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes; 
+			 // Если поток вывода уже используется - закрыть поток
+			 if (swTowns != nullptr)
+				 swTowns->Close();
 			 swTowns = gcnew StreamWriter(townsFileName, append); //если append=true, то дозапись, иначе перезапись
 			 labelTownsFileChoose->Text = townsFileName;
-			 ChangeEnable_Towns(true);
+			 ChangeEnable_Towns(true); // Активация элементов ввода информации о городах
 }
 		 /// <summary>
 		 /// Добавление новой записи в файл городов
 		 /// </summary>
 private: System::Void buttonTownsAdd_Click(System::Object^  sender, System::EventArgs^  e) {
-			 if (!File::Exists(townsFileName)) {
+			 // Поверки при выборе файла
+			 if (!File::Exists(townsFileName)) { // Существование файла
 				 System::Windows::Forms::MessageBox::Show(L"Файл " + countriesFileName + L" не существует", L"Ошибка!");
 				 return;
 			 }
-			 if (textBoxTownsWriteTown->Text == String::Empty) {
+			 if (textBoxTownsWriteTown->Text == String::Empty) { // Файл пуст
 				 System::Windows::Forms::MessageBox::Show(L"Ключевое поле \"Город\" не введено", L"Ошибка!");
 				 textBoxTownsWriteTown->Focus();
 				 return;
@@ -458,8 +528,14 @@ private: System::Void buttonTownsAdd_Click(System::Object^  sender, System::Even
 			 ClearInputs_Towns();
 			 textBoxTownsWriteTown->Focus();
 			 labelTownsAdd->Text = L"Информация была добавлена";
+			 timer1->Start(); // Начало таймера
 }
-private: System::Void buttonCountriesFileChoose_Click(System::Object^  sender, System::EventArgs^  e) { // аналогично buttonTownsFileChoose_Click
+
+		 /// <summary>
+		 /// Нажатие на кнопку выбора файла стран
+		 /// </summary>
+private: System::Void buttonCountriesFileChoose_Click(System::Object^  sender, System::EventArgs^  e)
+{
 			 System::Windows::Forms::DialogResult res = this->fileDialog->ShowDialog();
 			 if (res == System::Windows::Forms::DialogResult::Cancel)
 				 return;
@@ -469,6 +545,9 @@ private: System::Void buttonCountriesFileChoose_Click(System::Object^  sender, S
 				 return;
 			 }
 			 bool append = System::Windows::Forms::MessageBox::Show(L"Вы хотите дозаписать файл?\nYes - Да\t\tNo - Перезаписать файл", L"Режим работы с файлом стран", System::Windows::Forms::MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes;
+			 // Если поток вывода уже используется - закрыть поток
+			 if (swCountries != nullptr)
+				 swCountries->Close();
 			 swCountries = gcnew StreamWriter(countriesFileName, append);
 			 labelCountriesFileChoose->Text = countriesFileName;
 			 ChangeEnable_Countries(true);
@@ -476,7 +555,7 @@ private: System::Void buttonCountriesFileChoose_Click(System::Object^  sender, S
 		 /// <summary>
 		 /// Добавление новой записи в файл стран
 		 /// </summary>
-private: System::Void buttonCountriesAdd_Click(System::Object^  sender, System::EventArgs^  e) {
+private: System::Void buttonCountriesAdd_Click(System::Object^  sender, System::EventArgs^  e) { // аналог buttonTownsAdd_Click
 			 if (!File::Exists(countriesFileName)) {
 				 System::Windows::Forms::MessageBox::Show(L"Файл " + countriesFileName + L" не существует", L"Ошибка!");
 				 return;
@@ -486,25 +565,35 @@ private: System::Void buttonCountriesAdd_Click(System::Object^  sender, System::
 				 textBoxCountriesWriteCountry->Focus();
 				 return;
 			 }
+			 // Пропуск вместо невведённых полей
+			 if (textBoxCountriesWriteCapital->Text == String::Empty)
+				 textBoxCountriesWriteCapital->Text = "-";
+			 if (textBoxCountriesWriteContinent->Text == String::Empty)
+				 textBoxCountriesWriteContinent->Text = "-";
 			 this->swCountries->WriteLine(textBoxCountriesWriteCountry->Text + ";" + textBoxCountriesWriteCapital->Text + ";" + textBoxCountriesWriteContinent->Text);
 			 swCountries->Flush();
 			 ClearInputs_Countries();
 			 textBoxCountriesWriteCountry->Focus();
 			 labelCountriesAdd->Text = L"Информация была добавлена";
+			 timer1->Start(); // Начало таймера для label'а
 }
 		 /// <summary>
 		 /// Ограничение на ввод - только буквы
 		 /// </summary>
 private: System::Void textBox_OnlyLetters_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
-			 if (!Char::IsLetter(e->KeyChar)) // если символ - не буква, то произойдёт магия
+			 if (!Char::IsLetter(e->KeyChar) && !(e->KeyChar == (char)8)) // если символ - не буква, то произойдёт магия
 				 e->Handled = true;
 }
 		 /// <summary>
 		 /// Ограничение на ввод - только цифры
 		 /// </summary>
 private: System::Void textBox_OnlyDigits_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
-			 if (!Char::IsDigit(e->KeyChar)) // если символ - не цифра, то произойдёт магия
+			 if (!Char::IsDigit(e->KeyChar) && !(e->KeyChar == (char)8)) // если символ - не цифра, то произойдёт магия
 				 e->Handled = true;
+}
+
+private: System::Void оПрограммеToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+			 MessageBox::Show(L"Запись городов и стран\nПредназначена для записи информации о городах и странах в отдельные файлы\nВерсия 1.0\n© Макаров Егор, 2017.\nНе все права защищены.",L"О программе");
 }
 };
 }
