@@ -36,8 +36,8 @@ namespace LABA_1_1 {
 			}
 		}
 	private: System::Windows::Forms::GroupBox^  groupBoxTowns;
-	private: System::Windows::Forms::Label^  labelTownsAdd;
-	private: System::Windows::Forms::Button^  buttonTownsAdd;
+
+
 	private: System::Windows::Forms::Label^  labelTownsWriteCountry;
 	private: System::Windows::Forms::Label^  labelTownsWritePeople;
 	private: System::Windows::Forms::Label^  labelTownsWriteTown;
@@ -60,6 +60,8 @@ namespace LABA_1_1 {
 	private: System::Windows::Forms::TextBox^  textBoxCountriesWriteCountry;
 	private: System::Windows::Forms::Label^  labelCountriesFileChoose;
 	private: System::Windows::Forms::Button^  buttonCountriesFileChoose;
+	private: System::Windows::Forms::Label^  labelTownsAdd;
+	private: System::Windows::Forms::Button^  buttonTownsAdd;
 
 	private:
 		/// <summary>
@@ -124,7 +126,7 @@ namespace LABA_1_1 {
 			// labelTownsAdd
 			// 
 			this->labelTownsAdd->AutoSize = true;
-			this->labelTownsAdd->Location = System::Drawing::Point(385, 143);
+			this->labelTownsAdd->Location = System::Drawing::Point(340, 148);
 			this->labelTownsAdd->Name = L"labelTownsAdd";
 			this->labelTownsAdd->Size = System::Drawing::Size(82, 17);
 			this->labelTownsAdd->TabIndex = 5;
@@ -172,7 +174,7 @@ namespace LABA_1_1 {
 			this->textBoxTownsWriteCountry->Location = System::Drawing::Point(299, 109);
 			this->textBoxTownsWriteCountry->Name = L"textBoxTownsWriteCountry";
 			this->textBoxTownsWriteCountry->Size = System::Drawing::Size(110, 23);
-			this->textBoxTownsWriteCountry->TabIndex = 3;
+			this->textBoxTownsWriteCountry->TabIndex = 2;
 			this->textBoxTownsWriteCountry->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::textBox_OnlyLetters_KeyPress);
 			// 
 			// textBoxTownsWritePeople
@@ -235,7 +237,7 @@ namespace LABA_1_1 {
 			// labelCountriesAdd
 			// 
 			this->labelCountriesAdd->AutoSize = true;
-			this->labelCountriesAdd->Location = System::Drawing::Point(385, 143);
+			this->labelCountriesAdd->Location = System::Drawing::Point(340, 148);
 			this->labelCountriesAdd->Name = L"labelCountriesAdd";
 			this->labelCountriesAdd->Size = System::Drawing::Size(82, 17);
 			this->labelCountriesAdd->TabIndex = 5;
@@ -326,7 +328,7 @@ namespace LABA_1_1 {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(807, 473);
+			this->ClientSize = System::Drawing::Size(693, 444);
 			this->Controls->Add(this->groupBoxCountries);
 			this->Controls->Add(this->groupBoxTowns);
 			this->Name = L"MainForm";
@@ -341,31 +343,40 @@ namespace LABA_1_1 {
 		}
 #pragma endregion
 
-
-
-
-
-	private: String^ townsFileName;
-	private: String^ countriesFileName;
+	// Имена файлов для ввода информации
+	private: String^ townsFileName = ".000"; // Файл городов
+	private: String^ countriesFileName = ".111";
+	// Диалоговое окно
 	private: OpenFileDialog^ fileDialog;
-
+	// Потоки ввода-вывода
 	private: StreamWriter^ swTowns;
 	private: StreamWriter^ swCountries;
 
-
-
-
-
+			 
+			 /// <summary>
+			 /// При загрузке формы
+			 /// </summary>
 	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e) {
+				 // диалоговое окошко
 				 fileDialog = gcnew OpenFileDialog();
-				 fileDialog->Filter = L"txt, csv files | *.txt; *.csv";
+				 fileDialog->Filter = L"txt, csv files | *.txt; *.csv"; // Ограничения на тип выбираемого файла
 				 fileDialog->Title = L"Выбрать файл городов";
-				 fileDialog->InitialDirectory = Environment::CurrentDirectory;
-				 ChangeVisibility_Towns(false);
-				 ChangeVisibility_Countries(false);
+				 fileDialog->InitialDirectory = Environment::CurrentDirectory + L"\\iofiles"; //директория проекта + папка в нём
+				 // Активность элементов ввода = false, файлы не выбраны
+				 ChangeEnable_Towns(false);
+				 ChangeEnable_Countries(false);
+				 labelTownsFileChoose->Text = "Файл не выбран";
+				 labelCountriesFileChoose->Text = "Файл не выбран";
+				 // Пустые label'ы рядом с кнопками "Добавить"
+				 labelTownsAdd->Text = String::Empty;
+				 labelCountriesAdd->Text = String::Empty;
 	}	  
-	
-	private: System::Void ChangeVisibility_Towns(bool enable) {
+
+			 /// <summary>
+			 /// Активация/дизактивация элементов ввода городов
+			 /// <param name="enable">True=активированы\nFlase=Неактивны</param>
+			 /// </summary>
+	private: System::Void ChangeEnable_Towns(bool enable) {
 				 textBoxTownsWriteTown->Enabled = enable;
 				 textBoxTownsWritePeople->Enabled = enable;
 				 textBoxTownsWriteCountry->Enabled = enable;
@@ -375,7 +386,11 @@ namespace LABA_1_1 {
 				 labelTownsAdd->Enabled = enable;
 				 buttonTownsAdd->Enabled = enable;
 	}
-	private: System::Void ChangeVisibility_Countries(bool enable) {
+			 /// <summary>
+			 /// Активация/дизактивация элементов ввода стран
+			 /// <param name="enable">True=активированы Flase=Неактивны</param>
+			 /// </summary>
+	private: System::Void ChangeEnable_Countries(bool enable) {
 				 textBoxCountriesWriteCountry->Enabled = enable;
 				 textBoxCountriesWriteCapital->Enabled = enable;
 				 textBoxCountriesWriteContinent->Enabled = enable;
@@ -385,12 +400,17 @@ namespace LABA_1_1 {
 				 labelCountriesAdd->Enabled = enable;
 				 buttonCountriesAdd->Enabled = enable;
 	}
-			 
+			 /// <summary>
+			 /// Очистка полей ввода в GroupBox городов
+			 /// </summary>
 	private: System::Void ClearInputs_Towns() {
 				 textBoxTownsWriteTown->Clear();
 				 textBoxTownsWritePeople->Clear();
 				 textBoxTownsWriteCountry->Clear();
 	}
+			 /// <summary>
+			 /// Очистка полей ввода в GroupBox стран
+			 /// </summary>
 	private: System::Void ClearInputs_Countries() {
 				 textBoxCountriesWriteCountry->Clear();
 				 textBoxCountriesWriteCapital->Clear();
@@ -400,39 +420,62 @@ namespace LABA_1_1 {
 
 
 private: System::Void buttonTownsFileChoose_Click(System::Object^  sender, System::EventArgs^  e) {
+			 // Диалоговое окно выбора файла
 			 System::Windows::Forms::DialogResult res = this->fileDialog->ShowDialog();
 			 if (res == System::Windows::Forms::DialogResult::Cancel)
-				 return;
+				 return; // Файл не выбран
 			 townsFileName = fileDialog->FileName;
-			 bool append = System::Windows::Forms::MessageBox::Show(L"Вы хотите дозаписать файл?\nYes - Да\tNo - Перезаписать файл", L"Перезапись файла", System::Windows::Forms::MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes;
-			 swTowns = gcnew StreamWriter(townsFileName, append); //если append==true, то дозапись, иначе перезапись
+			 if (String::Equals(townsFileName, countriesFileName)) { // Если файл выбран повторно
+				 System::Windows::Forms::MessageBox::Show(L"Файл " + countriesFileName + L" открыт для записи информации о странах, его нельзя использовать", L"Ошибка!");
+				 return;
+			 }
+			 bool append = System::Windows::Forms::MessageBox::Show(L"Вы хотите дозаписать файл?\nYes - Да\t\tNo - Перезаписать файл", L"Режим работы с файлом городов", System::Windows::Forms::MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes; // Вопрос о до/пере-записи
+			 swTowns = gcnew StreamWriter(townsFileName, append); //если append=true, то дозапись, иначе перезапись
 			 labelTownsFileChoose->Text = townsFileName;
-			 ChangeVisibility_Towns(true);
+			 ChangeEnable_Towns(true);
 }
+		 /// <summary>
+		 /// Добавление новой записи в файл городов
+		 /// </summary>
 private: System::Void buttonTownsAdd_Click(System::Object^  sender, System::EventArgs^  e) {
-			 if (!File::Exists(countriesFileName)) {
+			 if (!File::Exists(townsFileName)) {
 				 System::Windows::Forms::MessageBox::Show(L"Файл " + countriesFileName + L" не существует", L"Ошибка!");
 				 return;
 			 }
-			 if (textBoxCountriesWriteCountry->Text == String::Empty) {
-				 System::Windows::Forms::MessageBox::Show(L"Ключевое поле \"Страна\" не введено", L"Ошибка!");
+			 if (textBoxTownsWriteTown->Text == String::Empty) {
+				 System::Windows::Forms::MessageBox::Show(L"Ключевое поле \"Город\" не введено", L"Ошибка!");
+				 textBoxTownsWriteTown->Focus();
 				 return;
 			 }
-			 this->swTowns->WriteLine(textBoxTownsWriteTown->Text + ";" + textBoxTownsWritePeople->Text + ";" + textBoxTownsWriteCountry->Text);
+			 // Нововведение - пропуск вместо невведённых полей
+			 if (textBoxTownsWritePeople->Text == String::Empty)
+				 textBoxTownsWritePeople->Text = "-";
+			 if (textBoxTownsWriteCountry->Text == String::Empty)
+				 textBoxTownsWriteCountry->Text = "-";
+			 // Запись через поток StreamWriter, его очистка и очистка полей ввода
+			 swTowns->WriteLine(textBoxTownsWriteTown->Text + ";" + textBoxTownsWritePeople->Text + ";" + textBoxTownsWriteCountry->Text);
 			 swTowns->Flush();
 			 ClearInputs_Towns();
-			 textBoxTownsWriteCountry->Focus();
+			 textBoxTownsWriteTown->Focus();
+			 labelTownsAdd->Text = L"Информация была добавлена";
 }
-private: System::Void buttonCountriesFileChoose_Click(System::Object^  sender, System::EventArgs^  e) {
+private: System::Void buttonCountriesFileChoose_Click(System::Object^  sender, System::EventArgs^  e) { // аналогично buttonTownsFileChoose_Click
 			 System::Windows::Forms::DialogResult res = this->fileDialog->ShowDialog();
 			 if (res == System::Windows::Forms::DialogResult::Cancel)
 				 return;
 			 countriesFileName = fileDialog->FileName;
-			 bool append = System::Windows::Forms::MessageBox::Show(L"Вы хотите дозаписать файл?\nYes - Да\tNo - Перезаписать файл", L"Перезапись файла", System::Windows::Forms::MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes;
-			 swCountries = gcnew StreamWriter(townsFileName, append);
+			 if (String::Equals(townsFileName, countriesFileName)) { // Если файл выбран повторно
+				 System::Windows::Forms::MessageBox::Show(L"Файл " + countriesFileName + L" открыт для записи информации о городах, его нельзя использовать", L"Ошибка!");
+				 return;
+			 }
+			 bool append = System::Windows::Forms::MessageBox::Show(L"Вы хотите дозаписать файл?\nYes - Да\t\tNo - Перезаписать файл", L"Режим работы с файлом стран", System::Windows::Forms::MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes;
+			 swCountries = gcnew StreamWriter(countriesFileName, append);
 			 labelCountriesFileChoose->Text = countriesFileName;
-			 ChangeVisibility_Countries(true);
+			 ChangeEnable_Countries(true);
 }
+		 /// <summary>
+		 /// Добавление новой записи в файл стран
+		 /// </summary>
 private: System::Void buttonCountriesAdd_Click(System::Object^  sender, System::EventArgs^  e) {
 			 if (!File::Exists(countriesFileName)) {
 				 System::Windows::Forms::MessageBox::Show(L"Файл " + countriesFileName + L" не существует", L"Ошибка!");
@@ -440,58 +483,28 @@ private: System::Void buttonCountriesAdd_Click(System::Object^  sender, System::
 			 }
 			 if (textBoxCountriesWriteCountry->Text == String::Empty) {
 				 System::Windows::Forms::MessageBox::Show(L"Ключевое поле \"Страна\" не введено", L"Ошибка!");
+				 textBoxCountriesWriteCountry->Focus();
 				 return;
 			 }
-			 this->swCountries->WriteLine(textBoxCountriesWriteCountry + ";" + textBoxCountriesWriteCapital + ";" + textBoxCountriesWriteContinent);
+			 this->swCountries->WriteLine(textBoxCountriesWriteCountry->Text + ";" + textBoxCountriesWriteCapital->Text + ";" + textBoxCountriesWriteContinent->Text);
 			 swCountries->Flush();
 			 ClearInputs_Countries();
 			 textBoxCountriesWriteCountry->Focus();
+			 labelCountriesAdd->Text = L"Информация была добавлена";
 }
+		 /// <summary>
+		 /// Ограничение на ввод - только буквы
+		 /// </summary>
 private: System::Void textBox_OnlyLetters_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
-			 if (Char::IsDigit(e->KeyChar)) // вводятся только буквы
+			 if (!Char::IsLetter(e->KeyChar)) // если символ - не буква, то произойдёт магия
 				 e->Handled = true;
 }
+		 /// <summary>
+		 /// Ограничение на ввод - только цифры
+		 /// </summary>
 private: System::Void textBox_OnlyDigits_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
-			 if (Char::IsLetter(e->KeyChar)) // вводятся только цифры
+			 if (!Char::IsDigit(e->KeyChar)) // если символ - не цифра, то произойдёт магия
 				 e->Handled = true;
 }
 };
 }
-// перед записью в файл проверить, что ключевое поле (страна или город) не пустое
-// если пустое, то messageBox "Ключевое поле Город/Страна не заполнено"
-//
-// realised in line 426, not copied
-// ok
-
-// проверять существование файла перед записью
-// если файла нет, то сообщение "Файл был удалён"
-//
-// realised in line 422, not copied
-// ok
-
-// при загрузке формы устанавливать видимость полей ввода false
-// сделать их видимыми после выбора файла
-//
-// realised in line 356-7
-// ok
-
-// после успешной записи в файл очищать поля ввода и устанавливать фокус на первое поле (текстбоксблаблабла.контрол.фокус)
-//
-// realised in line 431
-// ok
-
-// сделать возможность переключаться Tab'ом по полям ввода и кнопке ввода
-//
-// вроде done
-
-// ввод только букв/цифр (после душа)
-//
-// done
-
-
-//--------------------------------------------------------------------------------------------
-
-
-// закомментить весь код, чтобы потом смочь рассказать ментору, что где построчно происходит
-
-// протестировать всё это дело
