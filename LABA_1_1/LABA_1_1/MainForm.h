@@ -68,16 +68,10 @@ namespace LABA_1_1 {
 	private: System::Windows::Forms::ToolStripMenuItem^  menuItemTownsStopInputToolStrip;
 	private: System::Windows::Forms::ToolStripMenuItem^  menuItemCountriesStopInputToolStrip;
 
-
-
-
-
-
 	private: System::ComponentModel::IContainer^  components;
 
 
 
-#pragma region Windows Form Designer generated code
 		/// <summary>
 		/// ќб€зательный метод дл€ поддержки конструктора - не измен€йте
 		/// содержимое данного метода при помощи редактора кода.
@@ -85,6 +79,7 @@ namespace LABA_1_1 {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->groupBoxTowns = (gcnew System::Windows::Forms::GroupBox());
 			this->labelTownsAdd = (gcnew System::Windows::Forms::Label());
 			this->buttonTownsAdd = (gcnew System::Windows::Forms::Button());
@@ -407,6 +402,7 @@ namespace LABA_1_1 {
 			this->Controls->Add(this->groupBoxTowns);
 			this->Controls->Add(this->menuStrip);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MainMenuStrip = this->menuStrip;
 			this->MaximumSize = System::Drawing::Size(1000, 1000);
 			this->Name = L"MainForm";
@@ -422,7 +418,6 @@ namespace LABA_1_1 {
 			this->PerformLayout();
 
 		}
-#pragma endregion
 
 	// ѕути к файлам городов и стран дл€ ввода информации
 	private: String^ townsFileName = String::Empty;
