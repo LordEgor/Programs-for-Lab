@@ -1,0 +1,130 @@
+unit UnitForm;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls;
+
+type
+  TMainForm = class(TForm)
+    buttonTownsFileChoose: TButton;
+    buttonCountriesFileChoose: TButton;
+    labelTownsFileChoose: TLabel;
+    labelCountriesFileChoose: TLabel;
+    labelRequestInfo: TLabel;
+    textboxRequestField: TEdit;
+    buttonGeneralInfoFileChoose: TButton;
+    labelGeneralInfoFileChoose: TLabel;
+    buttonGeneralInfoWrite: TButton;
+    buttonRequestInfoFind: TButton;
+    memoRequestInfo: TMemo;
+    procedure buttonRequestInfoFindClick(Sender: TObject);
+
+    procedure FormCreate(Sender: TObject);
+    procedure buttonGeneralInfoFileChooseClick(Sender: TObject);
+    procedure buttonTownsFileChooseClick(Sender: TObject);
+    procedure buttonCountriesFileChooseClick(Sender: TObject);
+
+  private
+    procedure ChangeEnable(enable: Bool);
+    procedure ChangeEnable_Request(enable: Bool);
+    procedure ChangeEnable_General(enable: Bool);
+  public
+    { Public declarations }
+  end;
+
+var
+  MainForm: TMainForm;
+  townsFileName, countriesFileName, generalInfoFileName: string;
+  openFileDialog: TOpenDialog;
+
+implementation
+
+{$R *.dfm}
+
+
+// Активация/дизактивация элементов поиска информации по запросу
+procedure TMainForm.ChangeEnable_Request(enable :Bool);
+begin
+  MainForm.labelRequestInfo.Enabled := enable;
+  MainForm.textboxRequestField.Enabled := enable;
+  MainForm.buttonRequestInfoFind.Enabled := enable;
+  MainForm.memoRequestInfo.Enabled := enable;
+end;
+
+// Активация/дизактивация элементов печати общей информации в файл
+procedure TMainForm.ChangeEnable_General(enable :Bool);
+begin
+  MainForm.buttonGeneralInfoFileChoose.Enabled := enable;
+  MainForm.labelGeneralInfoFileChoose.Enabled := enable;
+  MainForm.buttonGeneralInfoWrite.Enabled := enable;
+end;
+
+// Активация/дизактивация элементов поиска и печати
+procedure TMainForm.ChangeEnable(enable :Bool);
+begin
+  ChangeEnable_Request(enable);
+  ChangeEnable_General(enable);
+end;
+
+// Выбор файла городов
+procedure TMainForm.buttonTownsFileChooseClick(Sender: TObject);
+begin
+  // Описание работы диалогового окна
+  openFileDialog.Title := 'Выбор файла городов';
+  if openFileDialog.Execute then
+    if (openFileDialog.FileName = countriesFileName) then
+      ShowMessage('Файл ' + openFileDialog.FileName + ' уже выбран как файл стран')
+    else if (openFileDialog.FileName = generalInfoFileName) then
+      ShowMessage('Файл ' + openFileDialog.FileName + ' уже выбран как файл для общей информации')
+    else townsFileName := openFileDialog.FileName;
+  openFileDialog.Free;
+end;
+
+// Выбор файла стран
+procedure TMainForm.buttonCountriesFileChooseClick(Sender: TObject);
+begin
+  // Описание работы диалогового окна
+  openFileDialog.Title := 'Выбор файла стран';
+  if openFileDialog.Execute then
+    if (openFileDialog.FileName = townsFileName) then
+      ShowMessage('Файл ' + openFileDialog.FileName + ' уже выбран как файл городов')
+    else if (openFileDialog.FileName = generalInfoFileName) then
+      ShowMessage('Файл ' + openFileDialog.FileName + ' уже выбран как файл для общей информации')
+    else
+    begin // файл ещё нигде не используется
+      townsFileName := openFileDialog.FileName;
+      MainForm.labelTownsFileChoose.Caption := townsFileName;
+    end;
+  openFileDialog.Free;
+end;
+
+// Выбор файла для общей информации
+procedure TMainForm.buttonGeneralInfoFileChooseClick(Sender: TObject);
+begin
+  //asd
+end;
+
+procedure TMainForm.buttonRequestInfoFindClick(Sender: TObject);
+begin
+
+end;
+
+// Форма создана
+procedure TMainForm.FormCreate(Sender: TObject);
+begin
+  // Дизактивация элементов на форме в начале работы
+  ChangeEnable(false);
+  townsFileName := '';
+  countriesFileName := '';
+  generalInfoFileName := '';
+  // Описание диалогового окна выбора файлов
+  openFileDialog := TOpenDialog.Create(self);
+  openFileDialog.InitialDir := GetCurrentDir;
+  openFileDialog.Options := [ofReadOnly, ofFileMustExist];
+  openFileDialog.Filter := 'txt, csv files|*.txt; *.csv';
+
+end;
+
+end.
