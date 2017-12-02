@@ -19,6 +19,7 @@ type
     buttonGeneralInfoWrite: TButton;
     buttonRequestInfoFind: TButton;
     memoRequestInfo: TMemo;
+    procedure buttonRequestInfoFindClick(Sender: TObject);
 
     procedure FormCreate(Sender: TObject);
     procedure buttonGeneralInfoFileChooseClick(Sender: TObject);
@@ -26,9 +27,7 @@ type
     procedure buttonCountriesFileChooseClick(Sender: TObject);
 
   private
-    procedure ChangeEnable(enable: Bool);
-    procedure ChangeEnable_Request(enable: Bool);
-    procedure ChangeEnable_General(enable: Bool);
+    procedure ChangeEnable(enable: Boolean);
   public
     { Public declarations }
   end;
@@ -43,28 +42,19 @@ implementation
 {$R *.dfm}
 
 
-// Активация/дизактивация элементов поиска информации по запросу
-procedure TMainForm.ChangeEnable_Request(enable :Bool);
+
+// Активация/дизактивация элементов поиска и печати
+procedure TMainForm.ChangeEnable(enable: Boolean);
 begin
+  // Элементы поиска информации по запросу
   MainForm.labelRequestInfo.Enabled := enable;
   MainForm.textboxRequestField.Enabled := enable;
   MainForm.buttonRequestInfoFind.Enabled := enable;
   MainForm.memoRequestInfo.Enabled := enable;
-end;
-
-// Активация/дизактивация элементов печати общей информации в файл
-procedure TMainForm.ChangeEnable_General(enable :Bool);
-begin
+  // Элементы печати общей информации в файл
   MainForm.buttonGeneralInfoFileChoose.Enabled := enable;
   MainForm.labelGeneralInfoFileChoose.Enabled := enable;
   MainForm.buttonGeneralInfoWrite.Enabled := enable;
-end;
-
-// Активация/дизактивация элементов поиска и печати
-procedure TMainForm.ChangeEnable(enable :Bool);
-begin
-  ChangeEnable_Request(enable);
-  ChangeEnable_General(enable);
 end;
 
 // Выбор файла городов
@@ -77,8 +67,13 @@ begin
       ShowMessage('Файл ' + openFileDialog.FileName + ' уже выбран как файл стран')
     else if (openFileDialog.FileName = generalInfoFileName) then
       ShowMessage('Файл ' + openFileDialog.FileName + ' уже выбран как файл для общей информации')
-    else townsFileName := openFileDialog.FileName;
-  openFileDialog.Free;
+    else
+    begin // Файл ещё нигде не используется
+      townsFileName := openFileDialog.FileName;
+      MainForm.labelTownsFileChoose.Caption := townsFileName;
+      if (countriesFileName <> '') then
+        ChangeEnable(true);
+    end;
 end;
 
 // Выбор файла стран
@@ -92,11 +87,12 @@ begin
     else if (openFileDialog.FileName = generalInfoFileName) then
       ShowMessage('Файл ' + openFileDialog.FileName + ' уже выбран как файл для общей информации')
     else
-    begin // файл ещё нигде не используется
-      townsFileName := openFileDialog.FileName;
-      MainForm.labelTownsFileChoose.Caption := townsFileName;
+    begin // Файл ещё нигде не используется
+      countriesFileName := openFileDialog.FileName;
+      MainForm.labelCountriesFileChoose.Caption := countriesFileName;
+      if (townsFileName <> '') then
+        ChangeEnable(true);
     end;
-  openFileDialog.Free;
 end;
 
 // Выбор файла для общей информации
@@ -105,20 +101,24 @@ begin
   //asd
 end;
 
+procedure TMainForm.buttonRequestInfoFindClick(Sender: TObject);
+begin
+
+end;
+
 // Форма создана
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
-  // Дизактивация элементов на форме в начале раюоты
+  // Дизактивация элементов на форме в начале работы
   ChangeEnable(false);
   townsFileName := '';
   countriesFileName := '';
   generalInfoFileName := '';
   // Описание диалогового окна выбора файлов
   openFileDialog := TOpenDialog.Create(self);
-  openFileDialog.InitialDir := GetCurrentDir;
+  openFileDialog.InitialDir := GetCurrentDir + '\iofiles';
   openFileDialog.Options := [ofReadOnly, ofFileMustExist];
   openFileDialog.Filter := 'txt, csv files|*.txt; *.csv';
-
 end;
 
 end.

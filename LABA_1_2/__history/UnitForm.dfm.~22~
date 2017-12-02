@@ -3,7 +3,7 @@ object MainForm: TMainForm
   Top = 152
   BorderStyle = bsSingle
   Caption = #1048#1085#1092#1086#1088#1084#1072#1094#1080#1103' '#1086' '#1075#1086#1088#1086#1076#1072#1093' '#1080' '#1089#1090#1088#1072#1085#1072#1093
-  ClientHeight = 378
+  ClientHeight = 382
   ClientWidth = 485
   Color = clBtnFace
   Constraints.MinHeight = 33
@@ -1324,7 +1324,7 @@ object MainForm: TMainForm
   PixelsPerInch = 96
   TextHeight = 13
   object labelTownsFileChoose: TLabel
-    Left = 143
+    Left = 152
     Top = 17
     Width = 82
     Height = 13
@@ -1333,7 +1333,7 @@ object MainForm: TMainForm
     WordWrap = True
   end
   object labelCountriesFileChoose: TLabel
-    Left = 143
+    Left = 152
     Top = 65
     Width = 82
     Height = 13
@@ -1391,7 +1391,7 @@ object MainForm: TMainForm
     TabOrder = 2
   end
   object buttonGeneralInfoFileChoose: TButton
-    Left = 64
+    Left = 8
     Top = 320
     Width = 129
     Height = 33
@@ -1401,7 +1401,7 @@ object MainForm: TMainForm
     OnClick = buttonGeneralInfoFileChooseClick
   end
   object buttonGeneralInfoWrite: TButton
-    Left = 280
+    Left = 336
     Top = 320
     Width = 129
     Height = 33

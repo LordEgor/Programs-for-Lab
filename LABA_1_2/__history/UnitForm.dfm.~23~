@@ -1391,7 +1391,7 @@ object MainForm: TMainForm
     TabOrder = 2
   end
   object buttonGeneralInfoFileChoose: TButton
-    Left = 64
+    Left = 8
     Top = 320
     Width = 129
     Height = 33
@@ -1401,7 +1401,7 @@ object MainForm: TMainForm
     OnClick = buttonGeneralInfoFileChooseClick
   end
   object buttonGeneralInfoWrite: TButton
-    Left = 280
+    Left = 336
     Top = 320
     Width = 129
     Height = 33
