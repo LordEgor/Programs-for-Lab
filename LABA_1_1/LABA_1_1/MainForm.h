@@ -30,6 +30,8 @@ namespace LABA_1_1 {
 		{
 			if (components)
 			{
+				swTowns->Close();
+				swCountries->Close();
 				delete components;
 			}
 		}
@@ -70,7 +72,7 @@ namespace LABA_1_1 {
 
 	private: System::ComponentModel::IContainer^  components;
 
-
+			 
 
 		/// <summary>
 		/// Обязательный метод для поддержки конструктора - не изменяйте
@@ -384,14 +386,13 @@ namespace LABA_1_1 {
 			this->справкаToolStripMenuItem->Name = L"справкаToolStripMenuItem";
 			this->справкаToolStripMenuItem->Size = System::Drawing::Size(65, 20);
 			this->справкаToolStripMenuItem->Text = L"Справка";
-			this->справкаToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::справкаToolStripMenuItem_Click);
 			// 
 			// aboutToolStripMenuItem
 			// 
 			this->aboutToolStripMenuItem->Name = L"aboutToolStripMenuItem";
-			this->aboutToolStripMenuItem->Size = System::Drawing::Size(149, 22);
+			this->aboutToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->aboutToolStripMenuItem->Text = L"О программе";
-			this->aboutToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::оПрограммеToolStripMenuItem_Click);
+			this->aboutToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::aboutToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
@@ -429,6 +430,7 @@ namespace LABA_1_1 {
 	private: StreamWriter^ swCountries;
 
 			 
+
 			 /// <summary>
 			 /// При загрузке формы
 			 /// </summary>
@@ -512,7 +514,7 @@ namespace LABA_1_1 {
 	}
 
 			 /// <summary>
-			 /// Нажатие на кнопку выбора файла городов
+			 /// Выбор файла городов
 			 /// </summary>
 private: System::Void buttonTownsFileChoose_Click(System::Object^  sender, System::EventArgs^  e) {
 			 // Показывается диалоговое окно выбора файла
@@ -527,8 +529,14 @@ private: System::Void buttonTownsFileChoose_Click(System::Object^  sender, Syste
 				 System::Windows::Forms::MessageBox::Show(L"Файл " + countriesFileName + L" открыт для записи информации о странах, его нельзя использовать", L"Ошибка!");
 				 return;
 			 }
+			 res = System::Windows::Forms::MessageBox::Show(L"Вы хотите дозаписать информацию в этот файл?\n\nДа - Дозаписать информацию в файл\nНет - Перезаписать этот файл\nОтмена - Отмена выбора файла", L"Режим работы с файлом городов", System::Windows::Forms::MessageBoxButtons::YesNoCancel);
 			 // Вопрос о до/пере-записи
-			 bool append = System::Windows::Forms::MessageBox::Show(L"Вы хотите дозаписать информацию в этот файл?\n\nYes - Дозаписать информацию в файл\nNo - Перезаписать этот файл", L"Режим работы с файлом городов", System::Windows::Forms::MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes; 
+			 bool append;
+			 if (res == System::Windows::Forms::DialogResult::Yes)
+				 append = true;
+			 else if (res == System::Windows::Forms::DialogResult::No)
+				 append = false;
+			 else return;
 			 // Если поток вывода уже используется - закрыть поток
 			 if (swTowns != nullptr)
 				 swTowns->Close();
@@ -541,12 +549,8 @@ private: System::Void buttonTownsFileChoose_Click(System::Object^  sender, Syste
 		 /// Добавление новой записи в файл городов
 		 /// </summary>
 private: System::Void buttonTownsAdd_Click(System::Object^  sender, System::EventArgs^  e) {
-			 // Поверки при выборе файла
-			 if (!File::Exists(townsFileName)) { // Существование файла
-				 System::Windows::Forms::MessageBox::Show(L"Файл " + countriesFileName + L" не существует", L"Ошибка!");
-				 return;
-			 }
-			 if (textBoxTownsWriteTown->Text == String::Empty) { // Файл пуст
+			 // Проверка наличия введённого ключевого поля
+			 if (textBoxTownsWriteTown->Text == String::Empty) {
 				 System::Windows::Forms::MessageBox::Show(L"Ключевое поле \"Город\" не введено", L"Ошибка!");
 				 textBoxTownsWriteTown->Focus();
 				 return;
@@ -566,7 +570,7 @@ private: System::Void buttonTownsAdd_Click(System::Object^  sender, System::Even
 }
 
 		 /// <summary>
-		 /// Нажатие на кнопку выбора файла стран
+		 /// Выбор файла стран
 		 /// </summary>
 private: System::Void buttonCountriesFileChoose_Click(System::Object^  sender, System::EventArgs^  e) { // аналог buttonTownsFileChoose_Click
 			 // Показывается диалоговое окно выбора файла
@@ -580,7 +584,14 @@ private: System::Void buttonCountriesFileChoose_Click(System::Object^  sender, S
 				 System::Windows::Forms::MessageBox::Show(L"Файл " + countriesFileName + L" открыт для записи информации о городах, его нельзя использовать", L"Ошибка!");
 				 return;
 			 }
-			 bool append = System::Windows::Forms::MessageBox::Show(L"Вы хотите дозаписать информацию в этот файл?\n\nYes - Дозаписать информацию в файл\nNo - Перезаписать этот файл", L"Режим работы с файлом стран", System::Windows::Forms::MessageBoxButtons::YesNo) == System::Windows::Forms::DialogResult::Yes;
+			 res = System::Windows::Forms::MessageBox::Show(L"Вы хотите дозаписать информацию в этот файл?\n\nДа - Дозаписать информацию в файл\nНет - Перезаписать этот файл\nОтмена - Отмена выбора файла", L"Режим работы с файлом городов", System::Windows::Forms::MessageBoxButtons::YesNoCancel);
+			 // Вопрос о до/пере-записи
+			 bool append;
+			 if (res == System::Windows::Forms::DialogResult::Yes)
+				 append = true;
+			 else if (res == System::Windows::Forms::DialogResult::No)
+				 append = false;
+			 else return;
 			 // Если поток вывода уже используется - закрыть поток
 			 if (swCountries != nullptr)
 				 swCountries->Close();
@@ -593,11 +604,7 @@ private: System::Void buttonCountriesFileChoose_Click(System::Object^  sender, S
 		 /// Добавление новой записи в файл стран
 		 /// </summary>
 private: System::Void buttonCountriesAdd_Click(System::Object^  sender, System::EventArgs^  e) { // аналог buttonTownsAdd_Click
-			 // Поверки при выборе файла
-			 if (!File::Exists(countriesFileName)) {
-				 System::Windows::Forms::MessageBox::Show(L"Файл " + countriesFileName + L" не существует", L"Ошибка!");
-				 return;
-			 }
+			 // Проверка наличия введённого ключевого поля
 			 if (textBoxCountriesWriteCountry->Text == String::Empty) {
 				 System::Windows::Forms::MessageBox::Show(L"Ключевое поле \"Страна\" не введено", L"Ошибка!");
 				 textBoxCountriesWriteCountry->Focus();
@@ -608,7 +615,7 @@ private: System::Void buttonCountriesAdd_Click(System::Object^  sender, System::
 				 textBoxCountriesWriteCapital->Text = "-";
 			 if (textBoxCountriesWriteContinent->Text == String::Empty)
 				 textBoxCountriesWriteContinent->Text = "-";
-			 this->swCountries->WriteLine(textBoxCountriesWriteCountry->Text + ";" + textBoxCountriesWriteCapital->Text + ";" + textBoxCountriesWriteContinent->Text);
+			 swCountries->WriteLine(textBoxCountriesWriteCountry->Text + ";" + textBoxCountriesWriteCapital->Text + ";" + textBoxCountriesWriteContinent->Text);
 			 swCountries->Flush();
 			 ClearInputs_Countries();
 			 textBoxCountriesWriteCountry->Focus();
@@ -619,7 +626,7 @@ private: System::Void buttonCountriesAdd_Click(System::Object^  sender, System::
 		 /// Ограничение на ввод в textBox'ы - только буквы
 		 /// </summary>
 private: System::Void textBox_OnlyLetters_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
-			 if (!Char::IsLetter(e->KeyChar) && !(e->KeyChar == (char)8))
+			 if (!Char::IsLetter(e->KeyChar) && !(e->KeyChar == (char)8)) // (char)8 = Backspace
 				 e->Handled = true;
 }
 		 /// <summary>
@@ -632,11 +639,8 @@ private: System::Void textBox_OnlyDigits_KeyPress(System::Object^  sender, Syste
 		 /// <summary>
 		 /// О программе
 		 /// </summary>
-private: System::Void оПрограммеToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+private: System::Void aboutToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 			 MessageBox::Show(L"Запись городов и стран\nПредназначена для записи информации о городах и странах в отдельные файлы\nВерсия 1.1\n© Макаров Егор, 2017.\nНе все права защищены, но мы работаем над этим.",L"О программе");
-}
-
-private: System::Void справкаToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 }
 
 		 /// <summary>
