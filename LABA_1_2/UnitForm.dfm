@@ -1318,6 +1318,7 @@ object MainForm: TMainForm
     44BEF3232F4101C8423EBF02E45C210FEB400756803E2C6733DBB7FDB08BA30C
     B074401E90FA63DDF74C0174137F2D221F93FE8AC7FD7B7A6FE9FF0195B02FED
     A652371D0000000049454E44AE426082}
+  Menu = MainMenu
   OldCreateOrder = False
   Position = poDesigned
   OnCreate = FormCreate
@@ -1325,18 +1326,18 @@ object MainForm: TMainForm
   TextHeight = 13
   object labelTownsFileChoose: TLabel
     Left = 143
-    Top = 17
+    Top = 8
     Width = 82
-    Height = 13
+    Height = 33
     Caption = #1060#1072#1081#1083' '#1085#1077' '#1074#1099#1073#1088#1072#1085
     Layout = tlCenter
     WordWrap = True
   end
   object labelCountriesFileChoose: TLabel
     Left = 143
-    Top = 65
+    Top = 56
     Width = 82
-    Height = 13
+    Height = 33
     Caption = #1060#1072#1081#1083' '#1085#1077' '#1074#1099#1073#1088#1072#1085
     Transparent = False
     Layout = tlCenter
@@ -1352,7 +1353,7 @@ object MainForm: TMainForm
   end
   object labelGeneralInfoFileChoose: TLabel
     Left = 8
-    Top = 359
+    Top = 320
     Width = 457
     Height = 13
     Alignment = taCenter
@@ -1392,7 +1393,7 @@ object MainForm: TMainForm
   end
   object buttonGeneralInfoFileChoose: TButton
     Left = 64
-    Top = 320
+    Top = 337
     Width = 129
     Height = 33
     Caption = #1042#1099#1073#1088#1072#1090#1100' '#1092#1072#1081#1083' '#1076#1083#1103' '#1086#1073#1097#1077#1081' '#1080#1085#1092#1088#1086#1084#1072#1094#1080#1080
@@ -1402,7 +1403,7 @@ object MainForm: TMainForm
   end
   object buttonGeneralInfoWrite: TButton
     Left = 280
-    Top = 320
+    Top = 337
     Width = 129
     Height = 33
     Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1086#1073#1097#1091#1102' '#1080#1085#1092#1086#1088#1084#1072#1094#1080#1102' '#1074' '#1092#1072#1081#1083
@@ -1427,5 +1428,16 @@ object MainForm: TMainForm
     Lines.Strings = (
       'memoRequestInfo')
     TabOrder = 6
+  end
+  object MainMenu: TMainMenu
+    Left = 448
+    Top = 8
+    object menuHelp: TMenuItem
+      Caption = #1057#1087#1088#1072#1074#1082#1072
+      object menuAbout: TMenuItem
+        Caption = #1054' '#1087#1088#1086#1075#1088#1072#1084#1084#1077
+        OnClick = menuAboutClick
+      end
+    end
   end
 end
