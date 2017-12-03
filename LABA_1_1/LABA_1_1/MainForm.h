@@ -209,9 +209,9 @@ namespace LABA_1_1 {
 			// 
 			this->labelTownsFileChoose->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->labelTownsFileChoose->Location = System::Drawing::Point(154, 19);
+			this->labelTownsFileChoose->Location = System::Drawing::Point(154, 33);
 			this->labelTownsFileChoose->Name = L"labelTownsFileChoose";
-			this->labelTownsFileChoose->Size = System::Drawing::Size(265, 71);
+			this->labelTownsFileChoose->Size = System::Drawing::Size(265, 49);
 			this->labelTownsFileChoose->TabIndex = 1;
 			this->labelTownsFileChoose->Text = L"Файл не выбран";
 			// 
@@ -242,7 +242,7 @@ namespace LABA_1_1 {
 				static_cast<System::Byte>(204)));
 			this->groupBoxCountries->Location = System::Drawing::Point(12, 220);
 			this->groupBoxCountries->Name = L"groupBoxCountries";
-			this->groupBoxCountries->Size = System::Drawing::Size(431, 178);
+			this->groupBoxCountries->Size = System::Drawing::Size(425, 178);
 			this->groupBoxCountries->TabIndex = 0;
 			this->groupBoxCountries->TabStop = false;
 			this->groupBoxCountries->Text = L"Страны";
@@ -321,9 +321,9 @@ namespace LABA_1_1 {
 			// 
 			this->labelCountriesFileChoose->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->labelCountriesFileChoose->Location = System::Drawing::Point(154, 19);
+			this->labelCountriesFileChoose->Location = System::Drawing::Point(148, 33);
 			this->labelCountriesFileChoose->Name = L"labelCountriesFileChoose";
-			this->labelCountriesFileChoose->Size = System::Drawing::Size(271, 71);
+			this->labelCountriesFileChoose->Size = System::Drawing::Size(265, 49);
 			this->labelCountriesFileChoose->TabIndex = 1;
 			this->labelCountriesFileChoose->Text = L"Файл не выбран";
 			// 
@@ -433,10 +433,13 @@ namespace LABA_1_1 {
 			 /// При загрузке формы
 			 /// </summary>
 	private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e) {
-				 // Диалоговое окно выбора файла
+				 // Описание диалогового окно выбора файла
 				 fileDialog = gcnew OpenFileDialog();
 				 fileDialog->Filter = L"txt, csv files | *.txt; *.csv"; // Ограничения на тип выбираемого файла
-				 fileDialog->InitialDirectory = Environment::CurrentDirectory + L"\\iofiles"; //директория проекта + папка в нём
+				 // Установка пути к папке с файлами городов и стран
+				 String^ dir = L"\\LABA_1_1\\LABA_1_1";
+				 dir = Environment::CurrentDirectory->Remove(Environment::CurrentDirectory->Length - dir->Length);
+				 fileDialog->InitialDirectory = dir->Insert(dir->Length, L"\\iofiles");
 				 // Активность элементов ввода = false, так как файлы не выбраны
 				 ChangeEnable_Towns(false);
 				 ChangeEnable_Countries(false);
@@ -590,6 +593,7 @@ private: System::Void buttonCountriesFileChoose_Click(System::Object^  sender, S
 		 /// Добавление новой записи в файл стран
 		 /// </summary>
 private: System::Void buttonCountriesAdd_Click(System::Object^  sender, System::EventArgs^  e) { // аналог buttonTownsAdd_Click
+			 // Поверки при выборе файла
 			 if (!File::Exists(countriesFileName)) {
 				 System::Windows::Forms::MessageBox::Show(L"Файл " + countriesFileName + L" не существует", L"Ошибка!");
 				 return;
