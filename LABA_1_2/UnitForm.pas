@@ -153,7 +153,7 @@ begin
   townsFileName := '';
   countriesFileName := '';
   generalInfoFileName := '';
-  // Задаётся путь к папке с файлами
+	// Установка пути к папке с файлами
   myDir := GetCurrentDir;
   Delete(myDir, Length(myDir)-lenDir, lenDir+1);
   myDir := myDir + '\iofiles';
