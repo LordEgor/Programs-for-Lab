@@ -1,0 +1,46 @@
+Yellowknife;10000;Canada;America
+Yemanzhelinsk;31400;Russia;Eurasia
+Muscat (столица);622000;Oman; Asia
+Kadnikov;5400;Russia;Eurasia
+SaoPaulo;12600000;Brazil;America
+Baiamare;150000;Romania;Europe
+Miass;172400;Russia;Eurasia
+Guilin;360000;China;Asia
+Tomari;8300;Russia;Eurasia
+London (столица);7330000;UK;Europe
+Rossosh;59300;Russia;Eurasia
+Jablonec;88000;CzechRepublic;Europe
+Wismar;55000;Germany;Europe
+Cartagena;564000;Colombia; America
+Pointenoire;576000;Congo;Africa
+Pantanal;123000;Romania;Europe
+Vitoria;254000;Brazil;America
+Bourges;79000;France;Europe
+Sanremo;61000;Italy;Europe
+Multan;1130000;Pakistan;Asia
+Kilage;232000;Rwanda;Africa
+Tijuana;699000;Mexico;America
+Velsk;-;Russia;Eurasia
+QuyNhon;160000;Vietnam;Asia
+Antigua;27000;Guatemala;America
+Quezoncity;1700000;Philippines;Asia
+Navoi;111600;Uzbekistan;Asia
+Sebezh;9100;Russia;Eurasia
+Fergana;-;Uzbekistan;Asia
+Qom;543000;Iran;Asia
+Saida;-;Lebanon;Asia
+Juizdefora;378000;Brazil;America
+Hum;27;Croatia;Europe
+Kawasaki;1100000;Japan;-
+Chania;62000;Greece;Europe
+Kohtlajarve;76800;Estonia;Europe
+Lugano;28000;Switzerland;Europe
+Torzhok;-;Russia;Eurasia
+Peshawar;555000;Pakistan;Asia
+Hameenlinna;44000;Finland;Europe
+Surabaya;2400000;Indonesia;Asia
+Tolyatti;-;Russia;Eurasia
+Kirkuk;419000;Iraq;Asia
+Barranquilla;1350000;Colombia; America
+Oruro;183000;Bolivia;America
+Bergamo;118000;Italy;Europe

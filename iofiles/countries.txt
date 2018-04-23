@@ -1,0 +1,32 @@
+﻿Hungary;Budapest;Europe
+Canada;Ottawa;America
+Russia;Moscow;Eurasia
+Oman;Muscat; Asia
+Brazil;Brazil;America
+Romania;Bucharest;Europe
+China;Beijing;Asia
+UK;London;Europe
+CzechRepublic;Prague;Europe
+Germany;Berlin;Europe
+Colombia;Bogotá; America
+Congo;Brazzaville;Africa
+France;Paris;Europe
+Italy;Rome;Europe
+Pakistan;Islamabad;Asia
+Rwanda;Kigali;Africa
+Mexico;MexicoCity;America
+Vietnam;Hanoi;Asia
+Guatemala;Guatemala;America
+Philippines;Manila;Asia
+Uzbekistan;Tashkent;Asia
+Iran;Tehran;Asia
+Lebanon;Beirut;Asia
+Croatia;-;Europe
+Japan;Tokyo;-
+Greece;Athens;Europe
+Estonia;Tallinn;Europe
+Switzerland;Bern;Europe
+Finland;Helsinki;Europe
+Indonesia;Jakarta;Asia
+Iraq;Baghdad;Asia
+Bolivia;Sucre;America
