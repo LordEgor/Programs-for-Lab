@@ -1,0 +1,30 @@
+{// Поиск по числу жителей >/< введённого
+    if (s[1] = '>') then
+    begin
+      Delete(s,1,1);
+      for i := 1 to general_N do
+        with generalInfoBase[i] do
+        try
+          if (StrToInt(People) > StrToInt(s)) then
+          begin
+            PrintInfoLine(k,i);
+            inc(k);
+          end;
+        except
+        end;
+    end //>
+    else if (s[1] = '<') then
+    begin  
+      Delete(s,1,1);
+      for i := 1 to general_N do
+        with generalInfoBase[i] do
+        try
+          if (StrToInt(People) < StrToInt(s)) then
+          begin
+            PrintInfoLine(k,i);
+            inc(k);
+          end;
+        except
+        end;
+    end //<
+    else }

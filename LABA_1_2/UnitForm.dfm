@@ -1,9 +1,10 @@
 object MainForm: TMainForm
   Left = 33
   Top = 152
+  BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = #1048#1085#1092#1086#1088#1084#1072#1094#1080#1103' '#1086' '#1075#1086#1088#1086#1076#1072#1093' '#1080' '#1089#1090#1088#1072#1085#1072#1093
-  ClientHeight = 378
+  ClientHeight = 423
   ClientWidth = 485
   Color = clBtnFace
   Constraints.MinHeight = 33
@@ -1327,28 +1328,34 @@ object MainForm: TMainForm
   object labelTownsFileChoose: TLabel
     Left = 143
     Top = 8
-    Width = 82
-    Height = 33
+    Width = 334
+    Height = 13
     Caption = #1060#1072#1081#1083' '#1085#1077' '#1074#1099#1073#1088#1072#1085
+    Constraints.MaxWidth = 334
+    Constraints.MinWidth = 334
     Layout = tlCenter
     WordWrap = True
   end
   object labelCountriesFileChoose: TLabel
     Left = 143
     Top = 56
-    Width = 82
-    Height = 33
+    Width = 334
+    Height = 13
     Caption = #1060#1072#1081#1083' '#1085#1077' '#1074#1099#1073#1088#1072#1085
+    Constraints.MaxWidth = 334
+    Constraints.MinWidth = 334
     Transparent = False
     Layout = tlCenter
     WordWrap = True
   end
   object labelRequestInfo: TLabel
     Left = 8
-    Top = 104
-    Width = 132
-    Height = 26
-    Caption = #1042#1074#1077#1076#1080#1090#1077' '#1074' '#1087#1086#1083#1077' '#1085#1072#1079#1074#1072#1085#1080#1077' '#1089#1090#1088#1072#1085#1099'/'#1084#1072#1090#1077#1088#1080#1082#1072
+    Top = 95
+    Width = 133
+    Height = 39
+    Caption = 
+      #1042#1074#1077#1076#1080#1090#1077' '#1074' '#1087#1086#1083#1077' '#1085#1072#1079#1074#1072#1085#1080#1077' '#1075#1086#1088#1086#1076#1072'/'#1089#1090#1088#1072#1085#1099'/'#1084#1072#1090#1077#1088#1080#1082#1072', '#1082#1086#1090#1086#1088#1086#1077' '#1093#1086#1090#1080#1090#1077' '#1085 +
+      #1072#1081#1090#1080
     WordWrap = True
   end
   object labelGeneralInfoFileChoose: TLabel
@@ -1357,13 +1364,11 @@ object MainForm: TMainForm
     Width = 457
     Height = 13
     Alignment = taCenter
-    AutoSize = False
-    Caption = #1060#1072#1081#1083' '#1076#1083#1103' '#1086#1073#1097#1077#1081' '#1080#1085#1092#1086#1088#1084#1072#1094#1080#1080' '#1085#1077' '#1074#1099#1073#1086#1088#1072#1085#1085#1077' '#1074#1099#1073#1088#1072#1085
-    Constraints.MaxHeight = 13
+    Caption = #1060#1072#1081#1083' '#1076#1083#1103' '#1086#1073#1097#1077#1081' '#1080#1085#1092#1086#1088#1084#1072#1094#1080#1080' '#1085#1077' '#1074#1099#1073#1088#1072#1085
     Constraints.MaxWidth = 457
-    Constraints.MinHeight = 13
     Constraints.MinWidth = 457
     Layout = tlCenter
+    WordWrap = True
   end
   object buttonTownsFileChoose: TButton
     Left = 8
@@ -1385,15 +1390,16 @@ object MainForm: TMainForm
   end
   object textboxRequestField: TEdit
     Left = 152
-    Top = 108
+    Top = 100
     Width = 174
     Height = 21
     Cursor = crIBeam
     TabOrder = 2
+    OnKeyPress = textboxRequestFieldKeyPress
   end
   object buttonGeneralInfoFileChoose: TButton
     Left = 64
-    Top = 337
+    Top = 362
     Width = 129
     Height = 33
     Caption = #1042#1099#1073#1088#1072#1090#1100' '#1092#1072#1081#1083' '#1076#1083#1103' '#1086#1073#1097#1077#1081' '#1080#1085#1092#1088#1086#1084#1072#1094#1080#1080
@@ -1403,16 +1409,17 @@ object MainForm: TMainForm
   end
   object buttonGeneralInfoWrite: TButton
     Left = 280
-    Top = 337
+    Top = 362
     Width = 129
     Height = 33
     Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1086#1073#1097#1091#1102' '#1080#1085#1092#1086#1088#1084#1072#1094#1080#1102' '#1074' '#1092#1072#1081#1083
     TabOrder = 4
     WordWrap = True
+    OnClick = buttonGeneralInfoWriteClick
   end
   object buttonRequestInfoFind: TButton
-    Left = 336
-    Top = 104
+    Left = 332
+    Top = 100
     Width = 129
     Height = 25
     Caption = #1055#1086#1080#1089#1082' '#1080#1085#1092#1086#1088#1084#1072#1094#1080#1080
@@ -1420,13 +1427,15 @@ object MainForm: TMainForm
     WordWrap = True
     OnClick = buttonRequestInfoFindClick
   end
-  object memoRequestInfo: TMemo
+  object stringGridRequestInfo: TStringGrid
     Left = 8
-    Top = 145
+    Top = 136
     Width = 457
-    Height = 169
-    Lines.Strings = (
-      'memoRequestInfo')
+    Height = 178
+    DefaultRowHeight = 15
+    RowCount = 1000
+    FixedRows = 0
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect]
     TabOrder = 6
   end
   object MainMenu: TMainMenu
