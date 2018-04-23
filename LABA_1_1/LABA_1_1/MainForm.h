@@ -30,8 +30,8 @@ namespace LABA_1_1 {
 		{
 			if (components)
 			{
-				swTowns->Close();
-				swCountries->Close();
+				if (swTowns) swTowns->Close();
+				if (swCountries) swCountries->Close();
 				delete components;
 			}
 		}
@@ -67,8 +67,9 @@ namespace LABA_1_1 {
 	private: System::Windows::Forms::ToolStripMenuItem^  aboutToolStripMenuItem;
 
 	private: System::Windows::Forms::ToolStripMenuItem^  файлToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^  menuItemTownsStopInputToolStrip;
-	private: System::Windows::Forms::ToolStripMenuItem^  menuItemCountriesStopInputToolStrip;
+	private: System::Windows::Forms::ToolStripMenuItem^  выходToolStripMenuItem;
+
+
 
 	private: System::ComponentModel::IContainer^  components;
 
@@ -107,8 +108,7 @@ namespace LABA_1_1 {
 			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->menuStrip = (gcnew System::Windows::Forms::MenuStrip());
 			this->файлToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->menuItemTownsStopInputToolStrip = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->menuItemCountriesStopInputToolStrip = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->выходToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->справкаToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->aboutToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->groupBoxTowns->SuspendLayout();
@@ -358,27 +358,17 @@ namespace LABA_1_1 {
 			// 
 			// файлToolStripMenuItem
 			// 
-			this->файлToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
-				this->menuItemTownsStopInputToolStrip,
-					this->menuItemCountriesStopInputToolStrip
-			});
+			this->файлToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->выходToolStripMenuItem });
 			this->файлToolStripMenuItem->Name = L"файлToolStripMenuItem";
 			this->файлToolStripMenuItem->Size = System::Drawing::Size(48, 20);
 			this->файлToolStripMenuItem->Text = L"Файл";
 			// 
-			// menuItemTownsStopInputToolStrip
+			// выходToolStripMenuItem
 			// 
-			this->menuItemTownsStopInputToolStrip->Name = L"menuItemTownsStopInputToolStrip";
-			this->menuItemTownsStopInputToolStrip->Size = System::Drawing::Size(255, 22);
-			this->menuItemTownsStopInputToolStrip->Text = L"Прекратить ввод в файл городов";
-			this->menuItemTownsStopInputToolStrip->Click += gcnew System::EventHandler(this, &MainForm::menuItemTownsStopInputToolStrip_Click);
-			// 
-			// menuItemCountriesStopInputToolStrip
-			// 
-			this->menuItemCountriesStopInputToolStrip->Name = L"menuItemCountriesStopInputToolStrip";
-			this->menuItemCountriesStopInputToolStrip->Size = System::Drawing::Size(255, 22);
-			this->menuItemCountriesStopInputToolStrip->Text = L"Прекратить ввод в файл стран";
-			this->menuItemCountriesStopInputToolStrip->Click += gcnew System::EventHandler(this, &MainForm::menuItemCountriesStopInputToolStrip_Click);
+			this->выходToolStripMenuItem->Name = L"выходToolStripMenuItem";
+			this->выходToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->выходToolStripMenuItem->Text = L"Выход";
+			this->выходToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::выходToolStripMenuItem_Click);
 			// 
 			// справкаToolStripMenuItem
 			// 
@@ -390,7 +380,7 @@ namespace LABA_1_1 {
 			// aboutToolStripMenuItem
 			// 
 			this->aboutToolStripMenuItem->Name = L"aboutToolStripMenuItem";
-			this->aboutToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->aboutToolStripMenuItem->Size = System::Drawing::Size(149, 22);
 			this->aboutToolStripMenuItem->Text = L"О программе";
 			this->aboutToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::aboutToolStripMenuItem_Click);
 			// 
@@ -447,8 +437,6 @@ namespace LABA_1_1 {
 				 ChangeEnable_Countries(false);
 				 labelTownsFileChoose->Text = "Файл не выбран";
 				 labelCountriesFileChoose->Text = "Файл не выбран";
-				 menuItemTownsStopInputToolStrip->Enabled = false;
-				 menuItemCountriesStopInputToolStrip->Enabled = false;
 				 // Пустые label'ы рядом с кнопками "Добавить"
 				 labelTownsAdd->Text = String::Empty;
 				 labelCountriesAdd->Text = String::Empty;
@@ -543,7 +531,6 @@ private: System::Void buttonTownsFileChoose_Click(System::Object^  sender, Syste
 			 swTowns = gcnew StreamWriter(townsFileName, append); //если append=true, то дозапись, иначе перезапись
 			 labelTownsFileChoose->Text = townsFileName;
 			 ChangeEnable_Towns(true); // Активация элементов ввода информации о городах
-			 menuItemTownsStopInputToolStrip->Enabled = true;
 }
 		 /// <summary>
 		 /// Добавление новой записи в файл городов
@@ -598,7 +585,6 @@ private: System::Void buttonCountriesFileChoose_Click(System::Object^  sender, S
 			 swCountries = gcnew StreamWriter(countriesFileName, append);
 			 labelCountriesFileChoose->Text = countriesFileName;
 			 ChangeEnable_Countries(true);
-			 menuItemCountriesStopInputToolStrip->Enabled = true;
 }
 		 /// <summary>
 		 /// Добавление новой записи в файл стран
@@ -640,32 +626,11 @@ private: System::Void textBox_OnlyDigits_KeyPress(System::Object^  sender, Syste
 		 /// О программе
 		 /// </summary>
 private: System::Void aboutToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-			 MessageBox::Show(L"Запись городов и стран\nПредназначена для записи информации о городах и странах в отдельные файлы\nВерсия 1.1\n© Макаров Егор, 2017.\nНе все права защищены, но мы работаем над этим.",L"О программе");
+			 MessageBox::Show(L"Запись городов и стран\nПредназначена для записи информации о городах и странах в отдельные файлы\nВерсия 1.3\n© Макаров Егор, 2018.\nНе все права защищены, но мы работаем над этим.",L"О программе");
 }
 
-		 /// <summary>
-		 /// Прекращение ввода в файл городов
-		 /// </summary>
-private: System::Void menuItemTownsStopInputToolStrip_Click(System::Object^  sender, System::EventArgs^  e) {
-			 swTowns->Flush();
-			 swTowns->Close();
-			 townsFileName = String::Empty;
-			 labelTownsFileChoose->Text = L"Файл не выбран";
-			 ClearInputs_Towns();
-			 ChangeEnable_Towns(false);
-			 menuItemTownsStopInputToolStrip->Enabled = false;
-}
-		 /// <summary>
-		 /// Прекращение ввода в файл стран
-		 /// </summary>
-private: System::Void menuItemCountriesStopInputToolStrip_Click(System::Object^  sender, System::EventArgs^  e) {
-			 swCountries->Flush();
-			 swCountries->Close();
-			 countriesFileName = String::Empty;
-			 labelCountriesFileChoose->Text = L"Файл не выбран";
-			 ClearInputs_Countries();
-			 ChangeEnable_Countries(false);
-			 menuItemCountriesStopInputToolStrip->Enabled = false;
+private: System::Void выходToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+			 MainForm::~MainForm();
 }
 };
 }
