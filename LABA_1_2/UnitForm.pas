@@ -175,15 +175,18 @@ end;
 procedure TMainForm.MergeFiles();
 var
   i,j,k: integer; // Переменные циклов
+  flag: boolean;  // =false, если нет ни одного города из страны/нет страны для города
 begin
   k := 0; // Число записей
   // Слияние информации
   for i := 0 to towns_N - 1 do  // по городам
   begin
+    flag := false;
     for j := 0 to countries_N - 1 do  // по странам
     begin
       if ((towns[i].Country = countries[j].Country)) then
-      begin 
+      begin
+        flag := true;
         SetLength(generalInfoBase,k+1);
         generalInfoBase[k].Town := towns[i].Town;
         generalInfoBase[k].People := towns[i].People;
@@ -196,7 +199,45 @@ begin
         inc(k);
       end;
     end; // j
+    // Нет страны для города i
+    if not(flag) then
+    begin
+      SetLength(generalInfoBase,k+1);
+      generalInfoBase[k].Town := towns[i].Town;
+      generalInfoBase[k].People := towns[i].People;
+      generalInfoBase[k].Country := towns[i].Country;
+      generalInfoBase[k].Continent := '-';
+      // Печать информации на экран
+      PrintInfoLine(k+1,k);
+      inc(k);
+    end;
   end; // i
+  // Нет ни одного города из страны j
+  for j := 0 to countries_N - 1 do
+  begin
+    flag := false;
+    for i := 0 to towns_N - 1 do
+    begin
+      if ((towns[i].Country = countries[j].Country)) then
+      begin
+        // Встречен город i из страны j
+        flag := true;
+        break;
+      end;
+    end; // i
+    // Запись страны j без городов
+    if not(flag) then
+    begin
+      SetLength(generalInfoBase,k+1);
+      generalInfoBase[k].Town := '-';
+      generalInfoBase[k].People := '-';
+      generalInfoBase[k].Country := countries[j].Country;
+      generalInfoBase[k].Continent := countries[j].Continent;
+      // Печать информации на экран
+      PrintInfoLine(k+1,k);
+      inc(k);
+    end;
+  end; // j
   // В случае отсутствия общей информцаии
   if (k = 0) then
   begin
@@ -472,7 +513,7 @@ end;
 // Окно с информацией о программе
 procedure TMainForm.menuAboutClick(Sender: TObject);
 begin
-  MessageDlg('Информация о городах и странах' + #13#10 + 'Версия 1.2' + #13#10
+  MessageDlg('Информация о городах и странах' + #13#10 + 'Версия 1.3' + #13#10
               + '© Макаров Егор, 2018.' + #13#10 + 'Не все права защищены, но мы работаем над этим.',mtInformation,[mbOk],0);
 end;
 
